@@ -19,12 +19,12 @@ int matrix_chain_order_bottomup(int p[], int m[][N], int s[][N], int n) {
     for(int i=1; i<=n; ++i)
 	m[i][i] = 0;
     
-    for(int l=2; l<=n; ++l) { // l is the chain length
-	for(int i=1; i<=n-l+1; ++i) { // i is begin of chain
-	    int j = i+l-1;
+    for(int l=2; l<=n; ++l) { // l is the chain length of matrices to be multiplied
+	for(int i=1; i<=n-l+1; ++i) { // i is begin of chain, last chain of this loop is [i, n] hence n-i+1 >= l
+	    int j = i+l-1; // j is end of chain
 	    m[i][j] = INT_MAX;
 	    int q;
-	    for(int k=i; k<=j-1; ++k) {
+	    for(int k=i; k<=j-1; ++k) {// k is the cut index i<=k<j
 		q = m[i][k] + m[k+1][j] + p[i-1]*p[k]*p[j];
 		if (q<m[i][j]) {
 		    m[i][j] = q;
